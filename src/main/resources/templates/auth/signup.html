@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments.html :: head"></head>
+<body>
+    <div class = "container mt-5">
+        <div class="input-form-backgroud row">
+            <div class="input-form col-md-12 mx-auto">
+                <h4 class="mb-3">회원가입</h4>
+                <form class="validation-form"
+                      th:action="@{/signup}" th:object="${signUpForm}" method="post" novalidate>
+                    <div class="mb-3">
+                        <label for="email">이메일</label>
+                        <input type="email" class="form-control" th:field="*{email}" id="email" placeholder="you@example.com" required>
+                        <div class="invalid-feedback"> 이메일을 입력해주세요. </div>
+                        <small class="form-text text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Nickname Error</small>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password">패스워드</label>
+                        <input type="password" class="form-control" th:field="*{password}" id="password" placeholder="password" required>
+                        <div class="invalid-feedback"> 패스워드를 입력해주세요.</div>
+                        <small class="form-text text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</small>
+                    </div>
+                    <div class="mb-3">
+                        <label for="confirmPassword">패스워드 확인</label>
+                        <input type="password" class="form-control" th:field="*{confirmPassword}" id="confirmPassword" placeholder="confirmPassword" required>
+                        <div class="invalid-feedback"> 2차 패스워드를 입력해주세요.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="name">이름</label>
+                        <input type="text" class="form-control" id="name" th:field="*{name}" placeholder="홍길동" value="" required>
+                        <div class="invalid-feedback"> 이름을 입력해주세요.</div>
+                        <small class="form-text text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">name Error</small>
+                    </div>
+                    <div class="mb-3">
+                        <label for="phone">핸드폰 번호</label>
+                        <input type="text" class="form-control" th:field="*{phone}" id="phone" placeholder="010-0000-0000" value="" required>
+                        <div class="invalid-feedback"> 핸드폰 번호를 입력해주세요.</div>
+                        <small class="form-text text-danger" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">phone Error</small>
+                    </div>
+                    <div class="mb-3">
+                        <label for="address">주소</label>
+                        <input type="text" class="form-control" th:field="*{address}" id="address" placeholder="경기도 고양시 ooo ooo ooo" value="" required>
+                        <div class="invalid-feedback"> 주소를 입력해주세요.</div>
+                        <small class="form-text text-danger" th:if="${#fields.hasErrors('address')}" th:errors="*{address}">address Error</small>
+                    </div>
+
+                    <hr class="mb-4">
+                    <button class="btn btn-primary btn-lg btn-block" type="submit">가입 완료</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+</html>
