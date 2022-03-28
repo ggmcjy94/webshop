@@ -4,9 +4,14 @@ import com.example.webshop.modules.auth.dto.SignUpForm;
 import com.example.webshop.modules.auth.jpa.Auth;
 import com.example.webshop.modules.auth.jpa.AuthRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional
@@ -22,8 +27,15 @@ public class AuthServiceImpl implements AuthService{
         signUpForm.setPassword(passwordEncoder.encode(signUpForm.getPassword()));
         Auth auth = new Auth();
         auth.createAccount(signUpForm);
-        Auth newAuth = authRepository.save(auth);
-        
-        return null;
+        return authRepository.save(auth);
+    }
+
+    @Override
+    public void login(Auth auth) {
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
+                new AuthAccount(auth),
+                auth.getPassword(),
+                List.of(new SimpleGrantedAuthority("ROLE_USER")));
+        SecurityContextHolder.getContext().setAuthentication(token);
     }
 }

@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -25,6 +26,7 @@ public class Auth {
     private String name;
     private String address;
     private String phone;
+
 
     public void createAccount(SignUpForm signUpForm) {
 

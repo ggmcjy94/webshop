@@ -7,4 +7,6 @@ public interface AuthService {
 
 
     Auth newAccountCreate(SignUpForm signUpForm);
+
+    void login(Auth auth);
 }
