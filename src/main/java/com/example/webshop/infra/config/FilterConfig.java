@@ -9,7 +9,10 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedOutputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 
 @Slf4j
@@ -33,6 +36,12 @@ public class FilterConfig implements Filter {
         String requestURI = httpServletRequest.getRequestURI();
         if (!requestURI.contains("/node_modules")) {
             log.info("[{}][{}][{}]", httpServletResponse.getStatus(), httpServletRequest.getRequestURL(), LocalDateTime.now());
+            String log = "[" + httpServletResponse.getStatus() + "]"
+                    + "[" +httpServletRequest.getRequestURL() +"]"
+                    + "[" + LocalDateTime.now() + "]" + "\n";
+            BufferedOutputStream bf = new BufferedOutputStream(new FileOutputStream("input.log", true));
+            bf.write(log.getBytes(StandardCharsets.UTF_8));
+            bf.close();
         }
 
     }
